@@ -1,0 +1,14 @@
+main.component_backup_lock_service : BUG#0
+
+# Fails since MySQL 8.0.30
+main.resource_group_thr_prio_unsupported        : BUG#0
+main.resource_group_binlog_events               : BUG#0
+
+clone.local_dml_auto_tune                       : BUG#0
+clone.remote_dml_auto_tune                      : BUG#0
+
+main.resource_group_binlog_events               : BUG#0
+main.resource_group_thr_prio_unsupported        : BUG#0
+rpl_gtid.rpl_mixed_temp_table_stored_function   : BUG#0
+sys_vars.innodb_buffer_pool_size_basic          : BUG#0
+x.resource_groups                               : BUG#0

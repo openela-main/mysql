@@ -1,0 +1,29 @@
+auth_sec.tls12_tls1 : BUG#0
+auth_sec.tls13_tls1 : BUG#0
+x.connection_tls_version : BUG#0
+
+# x86_64
+auth_sec.keyring_file_data_qa : BUG#0
+main.mysql_load_data_local_dir : BUG#0
+# i686
+main.ctype_unicode900_as_cs : BUG#0
+collations.chinese : BUG#0
+main.mysql_load_data_local_dir : BUG#0
+
+# x86_64, s390x
+main.mysqld--defaults-file : BUG#0
+main.mysqltest_json : BUG#0
+main.mtr_unit_tests : BUG#0
+main.mysqld--help-notwin : BUG#0
+
+# Unstable since 8.0.27
+innodb.innodb_read_only-2 : BUG#0
+
+# Failing since 8.0.29
+innodb.innochecksum_linux                  : BUG#0
+rpl_gtid.rpl_multi_source_mtr_includes     : BUG#0
+
+# Failing since MySQL 8.0.30
+auth_sec.fips                              : BUG#0
+rpl.rpl_fips                               : BUG#0
+main.mysqlpump_bugs                        : BUG#0

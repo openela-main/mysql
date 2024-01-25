@@ -1,0 +1,4 @@
+sys_vars.innodb_buffer_pool_size_basic : BUG#0
+sys_vars.myisam_data_pointer_size_func : BUG#0
+perfschema.idx_threads : BUG#0
+
