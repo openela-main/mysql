@@ -1,0 +1,59 @@
+# Fails on all arches
+main.subquery_sj_mat_bka_nobnl             : BUG#0 failing since 8.0.24 on F32+
+main.derived_limit                         : BUG#0 failing since 8.0.24 on F32+
+main.explain_tree                          : BUG#0 failing since 8.0.24 on F32+
+
+auth_sec.keyring_file_data_qa              : BUG#0 failing on F32+
+innodb.alter_kill                          : BUG#0 failing on F34+
+main.mtr_unit_tests                        : BUG#0 failing on F35+
+
+# Fails when -DENABLED_LOCAL_INFILE=ON
+main.mysql_load_data_local_dir             : BUG#0 failing on F32+
+
+# Unstable
+innodb.innodb_force_recovery               : BUG#0 unstable since 8.0.24 on F32+
+clone.local_dml_auto_tune                  : BUG#0 unstable on x86_64 and i686
+perfschema.threads_mysql                   : BUG#0 unstable on x86_64 and i686
+rpl_gtid.rpl_multi_source_mtr_includes     : BUG#0 unstable on x86_64 and i686
+
+# Failing on 32-bit arches: armv7hl i686 s390x; since MySQL 8.0.25
+x.connection_unixsocket                    : BUG#0
+x.connection_unixsocket_invalid            : BUG#0
+x.connection_unixsocket_lock               : BUG#0
+innodb.innodb_bug-13628249                 : BUG#0
+
+# Failing on C9S & RHEL 9 for MySQL release 8.0.27
+auth_sec.admin_channel_tls                 : BUG#0
+auth_sec.cipher_support                    : BUG#0
+auth_sec.openssl_cert_generation           : BUG#0
+auth_sec.openssl_without_fips              : BUG#0
+auth_sec.ssl_mode                          : BUG#0
+auth_sec.tls                               : BUG#0
+auth_sec.tls12_tls1                        : BUG#0
+binlog.binlog_grant_alter_user             : BUG#0
+main.grant_alter_user_qa                   : BUG#0
+main.grant_user_lock_qa                    : BUG#0
+main.openssl_1                             : BUG#0
+main.ssl_cipher                            : BUG#0
+main.ssl_dynamic                           : BUG#0
+x.connection_openssl                       : BUG#0
+x.connection_openssl_unixsocket            : BUG#0
+x.connection_tls_version                   : BUG#0
+main.slow_log                              : BUG#0
+main.ctype_unicode900_as_cs                : BUG#0
+
+# Failing consistently, but only on C9S ZUUL CI mock build
+main.loaddata_special                      : BUG#0
+
+# Failing on all arches since MySQL 8.0.28
+innodb.trigger_function_lock_compare       : BUG#0
+# Failing only in i686 since MySQL 8.0.28
+main.index_merge_myisam                    : BUG#0
+
+# Failing since MySQL 8.0.29
+main.mysqlpump_bugs                        : BUG#0
+main.slow_log                              : BUG#0
+
+# Failing since MySQL 8.0.30
+auth_sec.fips                              : BUG#0
+rpl.rpl_fips                               : BUG#0
