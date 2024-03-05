@@ -80,9 +80,11 @@ I'm not sure whether the output is synchronous, but even if it wasn'tit still lo
 
 
 
---- mysql-8.0.24/mysql-test/mysql-test-run.pl	2021-05-10 04:29:44.391897891 +0200
-+++ mysql-8.0.24/mysql-test/mysql-test-run.pl_patched	2021-05-10 04:38:51.031702753 +0200
-@@ -3374,17 +3374,6 @@ sub setup_vardir() {
+diff --git a/mysql-test/mysql-test-run.pl b/mysql-test/mysql-test-run.pl
+index 26e6c92c..9d85c6d6 100755
+--- a/mysql-test/mysql-test-run.pl
++++ b/mysql-test/mysql-test-run.pl
+@@ -3533,17 +3533,6 @@ sub setup_vardir() {
    mkpath("$opt_vardir/tmp");
    mkpath($opt_tmpdir) if ($opt_tmpdir ne "$opt_vardir/tmp");
  
@@ -99,4 +101,4 @@ I'm not sure whether the output is synchronous, but even if it wasn'tit still lo
 -
    # Copy all files from std_data into var/std_data
    # and make them world readable
-   copytree("$glob_mysql_test_dir/std_data", "$opt_vardir/std_data", "0022");
+   copytree("$glob_mysql_test_dir/std_data", "$opt_vardir/std_data", "0022")

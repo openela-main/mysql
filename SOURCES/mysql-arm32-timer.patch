@@ -1,10 +1,10 @@
 diff --git a/mysql-test/include/mtr_warnings.sql b/mysql-test/include/mtr_warnings.sql
-index eff14a67..413dfc27 100644
+index 78b09285..b7153445 100644
 --- a/mysql-test/include/mtr_warnings.sql
 +++ b/mysql-test/include/mtr_warnings.sql
-@@ -363,6 +363,11 @@ INSERT INTO global_suppressions VALUES
-  */
-  ("Manifest file '.*' is not read-only. For better security, please make sure that the file is read-only."),
+@@ -376,6 +376,11 @@ INSERT INTO global_suppressions VALUES
+ 
+  ("'mysql_native_password' is deprecated and will be removed in a future release."),
  
 + /*
 +   ARM32 don't support timers and get this warning in every test.

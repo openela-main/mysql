@@ -2,6 +2,9 @@
 %{?scl:%scl_package mysql}
 %{!?scl:%global pkg_name %{name}}
 
+# To both save infrastrucutre resources and workaround testsuite clashes
+ExcludeArch: %{ix86}
+
 # Name of the package without any prefixes
 %global pkgnamepatch mysql
 
@@ -16,7 +19,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.32
+%global last_tested_version 8.0.36
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -83,9 +86,9 @@
 %bcond_with bundled_zstd
 %bcond_with bundled_fido2
 %endif
-%global zstd_bundled_version 1.5.0
+%global zstd_bundled_version 1.5.5
 %global libevent_bundled_version 2.1.11
-%global fido2_bundled_version 1.8.0
+%global fido2_bundled_version 1.13.0
 
 # Include files for SysV init or systemd
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
@@ -144,7 +147,7 @@
 %endif
 
 Name:             %{?scl_prefix}mysql
-Version:          8.0.32
+Version:          8.0.36
 Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
@@ -193,6 +196,7 @@ Patch5:           %{pkgnamepatch}-paths.patch
 Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
 Patch54:          %{pkgnamepatch}-arm32-timer.patch
+Patch55:          %{pkgnamepatch}-c99.patch
 
 # Patches specific for scl
 Patch90:          %{pkgnamepatch}-scl-env-check.patch
@@ -515,6 +519,7 @@ the MySQL sources.
 %patch51 -p1
 %patch53 -p1
 %patch54 -p1
+%patch55 -p1
 %patch126 -p1
 
 # Patch Boost
@@ -736,7 +741,6 @@ install -p -m 644 scripts/mysql-scripts-common %{buildroot}%{_libexecdir}/mysql-
 install -D -p -m 0644 scripts/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
 install -D -p -m 0644 %{SOURCE32} %{buildroot}%{_sysconfdir}/my.cnf.d/%{pkg_name}-default-authentication-plugin.cnf
 
-rm %{buildroot}%{_infodir}/mysql.info*
 rm %{buildroot}%{_libdir}/mysql/*.a
 rm %{buildroot}%{_mandir}/man1/comp_err.1*
 
@@ -893,7 +897,7 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 2200 ))
   set -ex
   cd %{buildroot}%{_datadir}/mysql-test
 
-  export common_testsuite_arguments=" %{?with_debug:--debug-server} --parallel=auto --force --retry=2 --suite-timeout=900 --testcase-timeout=30 --mysqld=--binlog-format=mixed --max-test-fail=5 --report-unstable-tests --clean-vardir --mysqld=--skip-innodb-use-native-aio "
+  export common_testsuite_arguments=" %{?with_debug:--debug-server} --parallel=auto --force --retry=2 --suite-timeout=900 --testcase-timeout=30 --skip-combinations --max-test-fail=5 --report-unstable-tests --clean-vardir  --mysqld=--skip-innodb-use-native-aio "
 
   # If full testsuite has already been run on this version and we don't explicitly want the full testsuite to be run
   if [[ "%{last_tested_version}" == "%{version}" ]] && [[ %{force_run_testsuite} -eq 0 ]]
@@ -1206,6 +1210,26 @@ fi
 %endif
 
 %changelog
+* Wed Jan 03 2024 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.36-1
+- Update to MySQL 8.0.36
+
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 8.0.35-2
+- Fix int-conversion type error in memcached
+
+* Thu Sep 21 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.35-1
+- Update to MySQL 8.0.35
+- Remove patches now upstream
+
+* Wed Aug 09 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.34-1
+- Update to MySQL 8.0.34
+- Add patch from upstream bug#110569
+- Add patch to fix binlog format issue
+- Use --skip-combinations over --binlog-format=mixed
+- Add alignment patch upstream bug#110752
+
+* Wed Apr 12 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.33-1
+- Update to MySQL 8.0.33
+
 * Thu Jan 05 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.32-1
 - Update to MySQL 8.0.32
 
