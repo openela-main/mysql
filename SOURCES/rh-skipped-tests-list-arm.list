@@ -1,32 +1,9 @@
-gis.st_latitude                            : BUG#0 fails on F32+
-gis.st_longitude                           : BUG#0 fails on F32+
-
-perfschema.func_file_io                    : BUG#0 missing hw on 32-bit arm
-perfschema.global_read_lock                : BUG#0 missing hw on 32-bit arm
-perfschema.relaylog                        : BUG#0 missing hw on 32-bit arm
-perfschema.setup_objects                   : BUG#0 missing hw on 32-bit arm
-
-clone.remote_error_basic                   : BUG#0 fails since 8.0.19 on F32+, max_allowed_packet is 0
-
-clone.remote_dml_auto_tune                 : BUG#0
-
-# Unstable
-clone.local_dml_auto_tune                  : BUG#0
-innodb.innodb_bug-13628249                 : BUG#0
-main.grant_dynamic_flush                   : BUG#0
-innodb.innodb_read_only                    : BUG#0
-
-rpl_nogtid.rpl_mixed_mixing_engines        : BUG#0 timeout after 1800 secs or armv7hl
-
 # Failing on C9S & RHEL 9 for MySQL release 8.0.27
 sys_vars.innodb_buffer_pool_size_basic     : BUG#0
 
 # Unstable on aarch64 since MySQL 8.0.28
 innodb_undo.undo_settings                     : BUG#0
-perfschema.idx_session_account_connect_attrs  : BUG#0
-perfschema.idx_session_connect_attrs          : BUG#0
-rpl_gtid.rpl_mixed_temp_table_stored_function : BUG#0
-sysschema.pr_ps_setup_show_enabled            : BUG#0
-perfschema.idx_threads                        : BUG#0
-sys_vars.myisam_data_pointer_size_func        : BUG#0
-federated.federated_server                    : BUG#0
+
+# Unstable on aarch64 since MySQL 8.0.36
+sys_vars.myisam_data_pointer_size_func     : BUG#0
+rpl.rpl_eventlog_psi_memory                : BUG#0

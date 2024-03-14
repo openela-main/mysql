@@ -1,9 +1,5 @@
 # ppc64le
 sys_vars.innodb_buffer_pool_size_basic     : BUG#0 fails only on ppc64le on f32+
 
-# Failing on RHEL 9 for MySQL release 8.0.27
-main.sp-threads                            : BUG#0
-main.dd_upgrade_error                      : BUG#0
-main.dd_upgrade_non_debug                  : BUG#0
-main.dd_upgrade_partition                  : BUG#0
-main.partition_prefixkey_upgrade           : BUG#0
+# Unstable on 8.0.35
+rpl.rpl_replica_terminology                : BUG#0
