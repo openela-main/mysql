@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.36
+%global last_tested_version 8.0.41
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -67,7 +67,7 @@ ExcludeArch: %{ix86}
 %else
 %bcond_without bundled_protobuf
 %endif
-%global protobuf_bundled_version 3.19.4
+%global protobuf_bundled_version 24.4
 
 # Mysql 8.0.21 needs libevent version >2.1 and rhel-7 provides 2.0
 # Also since Mysql 8.0.18, libzstd is required, but it's not in rhel until version 8
@@ -88,7 +88,7 @@ ExcludeArch: %{ix86}
 %endif
 %global zstd_bundled_version 1.5.5
 %global libevent_bundled_version 2.1.11
-%global fido2_bundled_version 1.13.0
+%global fido2_bundled_version 1.15.0
 
 # Include files for SysV init or systemd
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
@@ -147,7 +147,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:             %{?scl_prefix}mysql
-Version:          8.0.36
+Version:          8.0.41
 Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
@@ -524,9 +524,9 @@ the MySQL sources.
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
-%patch111 -p0
+%patch111 -p1
 %patch112 -p1
-%patch113 -p2
+%patch113 -p1
 popd
 
 # check that we have correct versions in bundled(*) Provides above (boost checked with pushd above)
@@ -1210,6 +1210,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 07 2025 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.41-1
+- Update to MySQL 8.0.41
+
 * Wed Jan 03 2024 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.36-1
 - Update to MySQL 8.0.36
 
