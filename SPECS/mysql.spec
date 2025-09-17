@@ -2,8 +2,8 @@ ExcludeArch: %{ix86}
 
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.4.4
-%define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
+%global package_version 8.4.6
+%global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
 
@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.4.4
+%global last_tested_version 8.4.6
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -112,9 +112,9 @@ Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
-# Exceptions allow client libraries to be linked with most open source SW,
-# not only GPL code.  See README.mysql-license
-License:          GPL-2.0-or-later AND LGPL-2.1-only AND BSL-1.0 AND BSD-2-Clause
+# The the `Universal-FOSS-exception-1.0` exception allow client libraries to be linked with most open source SW, not only GPL code.
+# Usage of the `Universal-FOSS-exception-1.0` in the SPDX license expression does not signify that we regard "Interfaces" as protected by copyright.
+License:          GPL-2.0-only AND ( GPL-2.0-only WITH Universal-FOSS-exception-1.0 ) AND GPL-2.0-or-later AND ( LGPL-2.0-only WITH Universal-FOSS-exception-1.0 ) AND ( GPL-3.0-or-later WITH Bison-exception-2.2 ) AND ( GPL-2.0-only OR BSD-2-Clause ) AND BSD-2-Clause AND BSL-1.0 AND Apache-2.0 AND MIT
 
 Source0:          https://cdn.mysql.com/Downloads/MySQL-8.4/mysql-%{version}.tar.gz
 Source2:          mysql_config_multilib.sh
@@ -149,7 +149,6 @@ Patch5:           %{pkgnamepatch}-paths.patch
 Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch56:          %{pkgnamepatch}-flush-logrotate.patch
-Patch57:          %{pkgnamepatch}-openssl-engine.patch
 
 # Patches taken from boost 1.59
 Patch112:         boost-1.57.0-mpl-print.patch
@@ -178,10 +177,6 @@ BuildRequires:    libquadmath-devel
 %endif
 BuildRequires:    openssl
 BuildRequires:    openssl-devel
-%if 0%{?fedora} >= 41
-# Complement of mysql-openssl-engine.patch
-BuildRequires:    openssl-devel-engine
-%endif
 
 BuildRequires:    perl-interpreter
 BuildRequires:    perl-generators
@@ -521,7 +516,6 @@ regression test suite distributed with the MySQL sources.
 %patch -P51 -p1
 %patch -P52 -p1
 %patch -P56 -p1
-%patch -P57 -p1
 
 # Patch Boost
 pushd extra/boost/boost_$(echo %{boost_bundled_version}| tr . _)
@@ -733,11 +727,11 @@ rm %{buildroot}%{_mandir}/man1/mysql_config.1*
 
 %if ! %{with client}
 rm %{buildroot}%{_bindir}/{mysql,mysql_config_editor,\
-mysql_plugin,mysqladmin,mysqlbinlog,\
-mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap,my_print_defaults}
+mysqladmin,mysqlbinlog,\
+mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}
 rm %{buildroot}%{_mandir}/man1/{mysql,mysql_config_editor,\
-mysql_plugin,mysqladmin,mysqlbinlog,\
-mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap,my_print_defaults}.1*
+mysqladmin,mysqlbinlog,\
+mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}.1*
 %endif
 
 %if %{with config}
@@ -823,9 +817,6 @@ popd
 
 %post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
-if [ ! -e "%{logfile}" -a ! -h "%{logfile}" ] ; then
-    install /dev/null -m0640 -omysql -gmysql "%{logfile}"
-fi
 
 %preun -n %{pkgname}-server
 %systemd_preun %{daemon_name}.service
@@ -1006,7 +997,6 @@ fi
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
-%attr(0640,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
@@ -1142,6 +1132,12 @@ fi
 %endif
 
 %changelog
+* Thu Jul 24 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.6-1
+- Rebase to 8.4.6
+
+* Mon Apr 28 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.5-1
+- Rebase to 8.4.5
+
 * Thu Jan 23 2025 Michal Schorm <mschorm@redhat.com> - 8.4.4-1
 - Rebase to 8.4.4
 
