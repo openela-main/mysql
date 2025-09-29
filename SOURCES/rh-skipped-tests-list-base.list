@@ -44,3 +44,17 @@ main.archive_plugin                        : BUG#0
 main.blackhole_plugin                      : BUG#0
 main.events_read_only                      : BUG#0
 main.log_backtrace                         : BUG#0
+
+# Failing since MySQL 8.0.43
+rpl_gtid.rpl_perfschema_applier_status_by_worker_gtid_skipped_transaction_mts       : BUG#0 # unstable
+rpl.rpl_eventlog_psi_memory                : BUG#0 # unstable
+perfschema.idx_threads                     : BUG#0 # unstable
+rpl.rpl_priv_checks_user_start_info        : BUG#0 # unstable
+rpl_nogtid.rpl_partition_create_select     : BUG#0 # unstable
+perfschema.threads_mysql                   : BUG#0 # unstable
+sysschema.pr_ps_setup_show_enabled         : BUG#0 # unstable
+rpl_gtid.rpl_semi_sync_observe_commit_only                     : BUG#0 # unstable
+clone.remote_dml_auto_tune                 : BUG#0 # unstable
+sys_vars.myisam_data_pointer_size_func     : BUG#0 # unstable
+main.mysql_client_test                     : BUG#0 # unstable
+innodb_undo.undo_settings                  : BUG#0 # unstable

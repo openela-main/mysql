@@ -3,11 +3,10 @@ Software Collections. Removing these hard-coded paths should fix it.
 
 Upstream report: https://mariadb.atlassian.net/browse/MDEV-6485
 
-diff --git a/cmake/install_layout.cmake b/cmake/install_layout.cmake
-index 9f7945d8..6734cdfd 100644
---- a/cmake/install_layout.cmake
-+++ b/cmake/install_layout.cmake
-@@ -105,7 +105,7 @@ IF(UNIX)
+diff -Naur mysql-8.0.43/cmake/install_layout.cmake mysql-8.0.43_patched/cmake/install_layout.cmake
+--- mysql-8.0.43/cmake/install_layout.cmake	2025-07-09 10:45:01.000000000 +0200
++++ mysql-8.0.43_patched/cmake/install_layout.cmake	2025-08-05 09:22:54.506782584 +0200
+@@ -106,7 +106,7 @@
      " Choose between ${VALID_INSTALL_LAYOUTS}" )
    ENDIF()
  
@@ -16,19 +15,18 @@ index 9f7945d8..6734cdfd 100644
      CACHE PATH "config directory (for my.cnf)")
    MARK_AS_ADVANCED(SYSCONFDIR)
  ENDIF()
-@@ -189,6 +189,7 @@ SET(INSTALL_SECURE_FILE_PRIVDIR_TARGZ ${secure_file_priv_path})
- #
- SET(INSTALL_BINDIR_RPM                  "bin")
- SET(INSTALL_SBINDIR_RPM                 "sbin")
+@@ -202,6 +202,7 @@
+ ELSE()
+   SET(INSTALL_SBINDIR_RPM                 "sbin")
+ ENDIF()
 +SET(INSTALL_SYSCONFDIR_RPM              "/etc")
  #
  IF(CMAKE_SYSTEM_PROCESSOR IN_LIST KNOWN_64BIT_ARCHITECTURES)
    SET(INSTALL_LIBDIR_RPM                "lib64/mysql")
-diff --git a/mysys/my_default.cc b/mysys/my_default.cc
-index 290f1666..8403425f 100644
---- a/mysys/my_default.cc
-+++ b/mysys/my_default.cc
-@@ -1570,12 +1570,12 @@ static const char **init_default_directories(MEM_ROOT *alloc) {
+diff -Naur mysql-8.0.43/mysys/my_default.cc mysql-8.0.43_patched/mysys/my_default.cc
+--- mysql-8.0.43/mysys/my_default.cc	2025-07-09 10:45:01.000000000 +0200
++++ mysql-8.0.43_patched/mysys/my_default.cc	2025-08-05 09:24:59.510804797 +0200
+@@ -1652,12 +1652,12 @@
  
  #else
  
@@ -44,11 +42,10 @@ index 290f1666..8403425f 100644
  #endif /* DEFAULT_SYSCONFDIR */
  
  #endif
-diff --git a/scripts/CMakeLists.txt b/scripts/CMakeLists.txt
-index 4149a764..b091d5e2 100644
---- a/scripts/CMakeLists.txt
-+++ b/scripts/CMakeLists.txt
-@@ -288,9 +288,9 @@ IF(UNIX)
+diff -Naur mysql-8.0.43/scripts/CMakeLists.txt mysql-8.0.43_patched/scripts/CMakeLists.txt
+--- mysql-8.0.43/scripts/CMakeLists.txt	2025-07-09 10:45:01.000000000 +0200
++++ mysql-8.0.43_patched/scripts/CMakeLists.txt	2025-08-05 09:25:55.019369630 +0200
+@@ -271,9 +271,9 @@
  ENDIF(UNIX)
  
  SET(prefix "${CMAKE_INSTALL_PREFIX}")
@@ -60,11 +57,10 @@ index 4149a764..b091d5e2 100644
  SET(datadir ${prefix}/${INSTALL_MYSQLSHAREDIR})
  SET(libsubdir  ${INSTALL_LIBDIR})
  SET(pkgincludedir ${prefix}/${INSTALL_INCLUDEDIR})
-diff --git a/scripts/mysqld_multi.pl.in b/scripts/mysqld_multi.pl.in
-index 84dd4d7c..50397ddd 100644
---- a/scripts/mysqld_multi.pl.in
-+++ b/scripts/mysqld_multi.pl.in
-@@ -586,9 +586,7 @@ sub list_defaults_files
+diff -Naur mysql-8.0.43/scripts/mysqld_multi.pl.in mysql-8.0.43_patched/scripts/mysqld_multi.pl.in
+--- mysql-8.0.43/scripts/mysqld_multi.pl.in	2025-07-09 10:45:01.000000000 +0200
++++ mysql-8.0.43_patched/scripts/mysqld_multi.pl.in	2025-08-05 09:26:57.252077640 +0200
+@@ -587,9 +587,7 @@
  
    my %seen;  # Don't list the same file more than once
    return grep { defined $_ and not $seen{$_}++ and -f $_ and -r $_ }

@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.41
+%global last_tested_version 8.0.43
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -86,7 +86,7 @@ ExcludeArch: %{ix86}
 %bcond_with bundled_zstd
 %bcond_with bundled_fido2
 %endif
-%global zstd_bundled_version 1.5.5
+%global zstd_bundled_version 1.5.7
 %global libevent_bundled_version 2.1.11
 %global fido2_bundled_version 1.15.0
 
@@ -147,7 +147,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:             %{?scl_prefix}mysql
-Version:          8.0.41
+Version:          8.0.43
 Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
@@ -971,9 +971,6 @@ if [ $1 = 1 ]; then
     /sbin/chkconfig --add %{daemon_name}
 fi
 %endif
-if [ ! -e "%{logfile}" -a ! -h "%{logfile}" ] ; then
-    install /dev/null -m0640 -omysql -gmysql "%{logfile}"
-fi
 # TODO: remove after selinux-policy is fixed (BZ#1602153)
 semanage fcontext -a -t mysqld_log_t '/var/log/mysql(/.*)?'
 restorecon -r %{logfiledir}
@@ -1169,7 +1166,6 @@ fi
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
-%attr(0640,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %{?scl:%config(noreplace) %{?_scl_scripts}/service-environment}
@@ -1210,6 +1206,12 @@ fi
 %endif
 
 %changelog
+* Wed Aug 06 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.43-1
+- Rebase to MySQL 8.0.43
+
+* Thu Apr 24 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.42-1
+- Rebase to MySQL 8.0.42
+
 * Fri Feb 07 2025 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.41-1
 - Update to MySQL 8.0.41
 

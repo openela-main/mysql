@@ -7,3 +7,16 @@ main.subquery_sj_all_bka_nobnl                    : BUG#0
 # Fails since 8.0.41
 main.archive					  : BUG#0
 main.func_compress				  : BUG#0
+
+# Fails since 8.0.43
+innodb.check_ibd_filesize_16k        : BUG#0
+innodb.innodb                        : BUG#0
+innodb_zip.4k                        : BUG#0
+innodb_zip.8k                        : BUG#0
+innodb_zip.bug52745                  : BUG#0
+innodb_zip.bug53591                  : BUG#0
+innodb_zip.index_large_prefix        : BUG#0
+innodb_zip.index_large_prefix_4k     : BUG#0
+innodb_zip.index_large_prefix_8k     : BUG#0
+innodb_zip.prefix_index_liftedlimit  : BUG#0
+innodb.zlob_geom                     : BUG#0
