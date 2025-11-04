@@ -1,0 +1,3 @@
+# Fails since 8.4.6
+perfschema.system_events_component          : BUG#0
+sys_vars.myisam_data_pointer_size_func      : BUG#0
