@@ -3,3 +3,20 @@ main.subquery_bugs                                : BUG#0
 
 # Failing on C9S & RHEL 9 for MySQL release 8.0.33
 main.subquery_sj_all_bka_nobnl                    : BUG#0
+
+# Failing since MySQL 8.0.43
+innodb_zip.bug53591                               : BUG#0
+innodb_zip.index_large_prefix                     : BUG#0
+innodb_zip.4k                                     : BUG#0
+innodb_zip.8k                                     : BUG#0
+innodb_zip.index_large_prefix_4k                  : BUG#0
+innodb_zip.index_large_prefix_8k                  : BUG#0
+sys_vars.myisam_data_pointer_size_func            : BUG#0
+innodb_zip.bug52745                               : BUG#0
+innodb_zip.prefix_index_liftedlimit               : BUG#0
+innodb.zlob_geom                                  : BUG#0
+rpl.rpl_eventlog_psi_memory                       : BUG#0 # unstable
+clone.remote_dml_auto_tune                        : BUG#0 # unstable
+perfschema.idx_session_account_connect_attrs      : BUG#0 # unstable
+innodb_fts.optimize_big                           : BUG#0 # unstable
+sysschema.pr_ps_setup_show_enabled                : BUG#0 # unstable

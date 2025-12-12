@@ -36,3 +36,8 @@ rpl_gtid.mysqldump_bug33630199             : BUG#0
 
 # Failing since MySQL 8.0.40
 main.time_zone				   : BUG#0
+
+# Failing since MySQL 8.0.43
+rpl.rpl_tlsv13                             : BUG#0
+auth_sec.wl15800_ciphers_tlsv13            : BUG#0
+rpl.rpl_replica_terminology                : BUG#0 # unstable

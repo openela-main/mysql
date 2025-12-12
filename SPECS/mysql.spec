@@ -16,7 +16,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.41
+%global last_tested_version 8.0.44
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 # Aditional SELinux rules
@@ -77,8 +77,8 @@ ExcludeArch: %{ix86}
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
 Name:             mysql
-Version:          8.0.41
-Release:          2%{?with_debug:.debug}%{?dist}
+Version:          8.0.44
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -679,9 +679,6 @@ popd
 
 %post server
 %systemd_post %{daemon_name}.service
-if [ ! -e "%{logfile}" -a ! -h "%{logfile}" ] ; then
-    install /dev/null -m0640 -omysql -gmysql "%{logfile}"
-fi
 
 %preun server
 %systemd_preun %{daemon_name}.service
@@ -868,7 +865,6 @@ fi
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
-%attr(0640,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
@@ -986,6 +982,15 @@ fi
 %endif
 
 %changelog
+* Thu Oct 30 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.44-1
+- Rebase to MySQL 8.0.44
+
+* Wed Aug 06 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.43-1
+- Rebase to MySQL 8.0.43
+
+* Thu Apr 24 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.42-1
+- Rebase to MySQL 8.0.42
+
 * Thu Feb 13 2025 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.41-2
 - Fix patching of logrotate
 
