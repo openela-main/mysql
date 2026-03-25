@@ -1,0 +1,19 @@
+diff -Naur mysql-8.0.44/cmake/build_configurations/compiler_options.cmake mysql-8.0.44_patched/cmake/build_configurations/compiler_options.cmake
+--- mysql-8.0.44/cmake/build_configurations/compiler_options.cmake	2025-09-24 13:00:44.000000000 +0200
++++ mysql-8.0.44_patched/cmake/build_configurations/compiler_options.cmake	2026-02-12 17:19:26.417757345 +0100
+@@ -65,15 +65,6 @@
+     SET(COMMON_CXX_FLAGS             "-std=c++17 -fno-omit-frame-pointer")
+   ENDIF()
+ 
+-  # Faster TLS model
+-  # libprotobuf-lite.so.24.4: cannot allocate memory in static TLS block
+-  IF(MY_COMPILER_IS_GNU_OR_CLANG
+-      AND NOT LINUX_ARM
+-      AND NOT SOLARIS AND NOT LINUX_RHEL6 AND NOT LINUX_ALPINE)
+-    STRING_APPEND(COMMON_C_FLAGS     " -ftls-model=initial-exec")
+-    STRING_APPEND(COMMON_CXX_FLAGS   " -ftls-model=initial-exec")
+-  ENDIF()
+-
+   # Use STRING_PREPEND here, so command-line input can override our defaults.
+   STRING_PREPEND(CMAKE_C_FLAGS                  "${COMMON_C_FLAGS} ")
+   STRING_PREPEND(CMAKE_C_FLAGS_RELWITHDEBINFO   "${SECTIONS_FLAG} ")

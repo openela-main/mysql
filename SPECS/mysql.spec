@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.43
+%global last_tested_version 8.0.45
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -147,7 +147,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:             %{?scl_prefix}mysql
-Version:          8.0.43
+Version:          8.0.45
 Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
@@ -210,6 +210,8 @@ Patch113:         boost-1.76.0-fix_multiprecision_issue_419-ppc64le.patch
 
 # Use same logfile path in logrotate and mysql configs
 Patch126: mysql-logrotate-log-path.patch
+
+Patch127: upstream_735bd2a53834266c7256830c8d34672ea55fe17b.patch
 
 BuildRequires:    cmake
 BuildRequires:    gcc-c++
@@ -521,6 +523,7 @@ the MySQL sources.
 %patch54 -p1
 %patch55 -p1
 %patch126 -p1
+%patch127 -p1
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
@@ -1206,6 +1209,15 @@ fi
 %endif
 
 %changelog
+* Fri Jan 23 2026 Michal Schorm <mschorm@redhat.com> - 8.0.45-1
+- Rebase to 8.0.45
+
+* Mon Jan 12 2026 Pavol Sloboda <psloboda@redhat.com> - 8.0.44-2
+- Updated the Thread-local storage behaviour to avoid import issues
+
+* Thu Oct 30 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.44-1
+- Rebase to MySQL 8.0.44
+
 * Wed Aug 06 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.43-1
 - Rebase to MySQL 8.0.43
 
