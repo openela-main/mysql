@@ -58,3 +58,9 @@ clone.remote_dml_auto_tune                 : BUG#0 # unstable
 sys_vars.myisam_data_pointer_size_func     : BUG#0 # unstable
 main.mysql_client_test                     : BUG#0 # unstable
 innodb_undo.undo_settings                  : BUG#0 # unstable
+
+# Failing since MySQL 8.0.46
+auth_sec.atomic_rename_user                : BUG#0
+main.grant_user_lock                       : BUG#0
+main.loaddata_special                      : BUG#0
+x.resource_groups                          : BUG#0

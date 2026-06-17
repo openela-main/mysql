@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.45
+%global last_tested_version 8.0.46
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -147,7 +147,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:             %{?scl_prefix}mysql
-Version:          8.0.45
+Version:          8.0.46
 Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
@@ -1209,6 +1209,10 @@ fi
 %endif
 
 %changelog
+
+* Wed Apr 22 2026 Michal Schorm <mschorm@redhat.com> - 8.0.46-1
+- Rebase to 8.0.46
+
 * Fri Jan 23 2026 Michal Schorm <mschorm@redhat.com> - 8.0.45-1
 - Rebase to 8.0.45
 
